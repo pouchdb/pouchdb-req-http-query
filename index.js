@@ -85,7 +85,9 @@ module.exports = function httpQuery(db, req) {
         if (xhr.setDisableHeaderCheck) {
           xhr.setDisableHeaderCheck(true);
         }
-        xhr.setRequestHeader(name, headers[name]);
+        if (["host", "user-agent"].indexOf(name.toLowerCase()) === -1) {
+          xhr.setRequestHeader(name, headers[name]);
+        }
       }
     }
     xhr.send(req.body === "undefined" ? null : req.body);
